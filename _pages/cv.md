@@ -22,9 +22,7 @@ Work experience
     * Build and develop optimization and uncertainty analysis framework based on Machine Learning algorithm using Python for    collaborative research with Tohoku University.
     * Prepare manuscript for journal and conference publications.
     * Helps undergraduate and graduate students in conducting researches
-  * Supervisor: 
-    * Lavi Rizki Zuhal, Ph.D
-    * Pramudita Satria Palar, Ph.D
+  * Supervisor: Lavi Rizki Zuhal, Ph.D and Pramudita Satria Palar, Ph.D
 
 * Jan 2019 - Jul 2019: Part-time Front End Developer
   * Waviv Technology
