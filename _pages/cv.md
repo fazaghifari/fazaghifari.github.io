@@ -16,7 +16,7 @@ Education
 
 Work experience
 ======
-* Aug 2018 - Now: Research Assistant
+* **Aug 2018 - Now: Research Assistant**
   * Institut Teknologi Bandung
   * Duties included:
     * Build and develop optimization and uncertainty analysis framework based on Machine Learning algorithm using Python for    collaborative research with Tohoku University.
@@ -24,14 +24,14 @@ Work experience
     * Helps undergraduate and graduate students in conducting researches
   * Supervisor: Lavi Rizki Zuhal, Ph.D and Pramudita Satria Palar, Ph.D
 
-* Jan 2019 - Jul 2019: Part-time Front End Developer
+* **Jan 2019 - Jul 2019: Part-time Front End Developer**
   * Waviv Technology
   * Duties included: 
     * Build and develop web app interface using Vue.JS.
     * Developed websites compatible with multiple browsers.
     * Consulted with customers to gather requirements and discuss design choices
 
-* May 2017 - Jul 2017: CFD Analyst Intern
+* **May 2017 - Jul 2017: CFD Analyst Intern**
   * Gexcon Indonesia
   * Duties included:
     * Code development for gas detector layout optimization.
