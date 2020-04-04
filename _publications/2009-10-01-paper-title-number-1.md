@@ -1,15 +1,15 @@
 ---
-title: "Paper Title Number 1"
+title: "Multi-Objective Kriging-Based Optimization for High-Fidelity Wind Turbine Design"
 collection: publications
-permalink: /publication/2009-10-01-paper-title-number-1
-excerpt: 'This paper is about the number 1. The number 2 is left for future work.'
-date: 2009-10-01
-venue: 'Journal 1'
-paperurl: 'http://academicpages.github.io/files/paper1.pdf'
-citation: 'Your Name, You. (2009). &quot;Paper Title Number 1.&quot; <i>Journal 1</i>. 1(1).'
+permalink: /publication/Multi-Objective_Kriging-Based_Optimization_for_High-Fidelity_Wind_Turbine_Design
+excerpt: 'In this paper, we present the implementation of multi-objective Kriging-based optimization for high-fidelity wind turbine design. Specifically, a multi-objective Bayesian optimization (MOBO) technique based on expected hypervolume improvement and high-fidelity computational fluid dynamics are utilized to solve the wind turbine design optimization problem. The primary aim is to solve multi-objective wind turbine design optimization problem using a high-fidelity CFD solver without the need to obtain gradient information; although such information can be incorporated into MOBO if available. The radial basis function-based mesh deformation technique is applied to simultaneously deform the mesh and wind turbine geometry. This set of methodologies is then applied to the optimization of NREL Phase VI wind turbine where we applied 70 mesh deformation control points. The multi-objective optimization aims to maximize the torque production and minimize the blade volume of the NREL Phase VI wind turbine. By using this procedure, we obtained a set of non-dominated solutions that dominate the baseline design in terms of both volume and torque production.'
+date: 2019-08-01
+venue: 'AIAA Scitech 2019 Forum'
+paperurl: 'https://www.researchgate.net/publication/330198817_Multi-Objective_Kriging-Based_Optimization_for_High-Fidelity_Wind_Turbine_Design'
+citation: 'Lavi R. Zuhal, Ghifari A. Faza, Pramudita S. Palar, and Koji Shimoyama. Multi-Objective Kriging-Based Optimization for High-Fidelity Wind Turbine Design. In AIAA Scitech 2019 Forum, AIAA SciTech Forum. American Institute of Aeronautics and Astronautics, January 2019.'
 ---
-This paper is about the number 1. The number 2 is left for future work.
+In this paper, we present the implementation of multi-objective Kriging-based optimization for high-fidelity wind turbine design. Specifically, a multi-objective Bayesian optimization (MOBO) technique based on expected hypervolume improvement and high-fidelity computational fluid dynamics are utilized to solve the wind turbine design optimization problem. The primary aim is to solve multi-objective wind turbine design optimization problem using a high-fidelity CFD solver without the need to obtain gradient information; although such information can be incorporated into MOBO if available. The radial basis function-based mesh deformation technique is applied to simultaneously deform the mesh and wind turbine geometry. This set of methodologies is then applied to the optimization of NREL Phase VI wind turbine where we applied 70 mesh deformation control points. The multi-objective optimization aims to maximize the torque production and minimize the blade volume of the NREL Phase VI wind turbine. By using this procedure, we obtained a set of non-dominated solutions that dominate the baseline design in terms of both volume and torque production. From the results, we observe that the torque-optimized and volume-optimized geometry yields 6% increase in torque and 7% decrease in blade volume, respectively.
 
-[Download paper here](http://academicpages.github.io/files/paper1.pdf)
+[Download paper here](https://www.researchgate.net/publication/330198817_Multi-Objective_Kriging-Based_Optimization_for_High-Fidelity_Wind_Turbine_Design)
 
-Recommended citation: Your Name, You. (2009). "Paper Title Number 1." <i>Journal 1</i>. 1(1).
+[Download citation here](https://arc.aiaa.org/action/showCitFormats?doi=10.2514%2F6.2019-0539)
