@@ -1,6 +1,6 @@
 ---
 title: "Potential Flow Solver"
-excerpt: Python code for solving laminar flow problem past an airfoil."
+excerpt: "Python code for solving laminar flow problem past an airfoil."
 collection: portfolio
 ---
 
