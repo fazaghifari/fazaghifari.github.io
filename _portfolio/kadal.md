@@ -1,6 +1,6 @@
 ---
 title: "KADAL"
-excerpt: "test<br/> <img width="500" src='/images/kadal.jpg'>"
+excerpt: "test <br/> <img width="500" src='/images/kadal.jpg'>"
 collection: portfolio
 ---
 
