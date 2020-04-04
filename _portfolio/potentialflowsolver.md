@@ -4,6 +4,7 @@ excerpt: "Python code for solving laminar flow problem past an airfoil."
 collection: portfolio
 ---
 
+For further information, go to the [repository](https://github.com/fazaghifari/PotentialFlow_solver
 # Laminar Viscous Solver
 This code is a part of final project of Continuum Mechanics II, in Aerospace Engineering ITB
 
@@ -35,6 +36,4 @@ Dependencies: numpy, matplotlib, copy
 
      Freestream velocity: 10 m/s
      Angle of Attack: 0 deg
-	 Airfoil file: 2410.txt
-
-For further information, go to the [repository](https://github.com/fazaghifari/PotentialFlow_solver)
+	 Airfoil file: 2410.txt)
