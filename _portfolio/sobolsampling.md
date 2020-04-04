@@ -1,6 +1,6 @@
 ---
 title: "Sobol Sampling"
-excerpt: Python package for generating Sobol sequences, able to generate up to 21201 dimension."
+excerpt: "Python package for generating Sobol sequences, able to generate up to 21201 dimension."
 collection: portfolio
 ---
 
