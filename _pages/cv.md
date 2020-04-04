@@ -11,30 +11,45 @@ redirect_from:
 
 Education
 ======
-* B.S. in GitHub, GitHub University, 2012
-* M.S. in Jekyll, GitHub University, 2014
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
+* B.Sc. in Aerospace Engineering, Institut Teknologi Bandung, Aug 2014 - Jun 2018
+* M.Sc. in Aerospace Engineering, Institut Teknologi Bandung, Aug 2018 - Jan 2020
 
 Work experience
 ======
-* Summer 2015: Research Assistant
-  * Github University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
+* Aug 2018 - Now: Research Assistant
+  * Institut Teknologi Bandung
+  * Duties included:
+    * Build and develop optimization and uncertainty analysis framework based on Machine Learning algorithm using Python for    collaborative research with Tohoku University.
+    * Prepare manuscript for journal and conference publications.
+    * Helps undergraduate and graduate students in conducting researches
+  * Supervisor: 
+    * Lavi Rizki Zuhal, Ph.D
+    * Pramudita Satria Palar, Ph.D
 
-* Fall 2015: Research Assistant
-  * Github University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
+* Jan 2019 - Jul 2019: Part-time Front End Developer
+  * Waviv Technology
+  * Duties included: 
+    * Build and develop web app interface using Vue.JS.
+    * Developed websites compatible with multiple browsers.
+    * Consulted with customers to gather requirements and discuss design choices
+
+* May 2017 - Jul 2017: CFD Analyst Intern
+  * Gexcon Indonesia
+  * Duties included:
+    * Code development for gas detector layout optimization.
+    * Heat transfer analysis inside an incinerator using CFD.
   
 Skills
 ======
-* Skill 1
-* Skill 2
-  * Sub-skill 2.1
-  * Sub-skill 2.2
-  * Sub-skill 2.3
-* Skill 3
+* Python (5000++ lines)
+* MATLAB (3500++ lines)
+* LaTeX
+* SQL
+* Machine Learning
+* HTML
+* JavaScript
+* Computational Fluid Dynamics
+* Finite Element Analysis
 
 Publications
 ======
@@ -42,18 +57,14 @@ Publications
     {% include archive-single-cv.html %}
   {% endfor %}</ul>
   
-Talks
+Course certificates
 ======
-  <ul>{% for post in site.talks %}
-    {% include archive-single-talk-cv.html %}
-  {% endfor %}</ul>
+* **Course Certificate:** Machine Learning by Stanford University on Coursera. Certificate earned at Thursday, April 25, 2019.
+* **Course Certificate:** Python 3 Programming by University of Michigan on Coursera. Certificate earned at August 4, 2019.
+* **Course Certificate:** Deep Learning Specialization by deeplearning.ai on Coursera. Certificate earned at January 28, 2020.
   
-Teaching
+Organization and leadership
 ======
-  <ul>{% for post in site.teaching %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Service and leadership
-======
-* Currently signed in to 43 different slack teams
+* 2014 - 2017: Aksantara ITB
+  * Head of design division, coordinated a team of 10 member to design three UAVs for different purposes.
+  * Earned best design awards in kontes robot terbang Indonesia (KRTI) 2016 and 2017.
