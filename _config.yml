@@ -10,7 +10,7 @@ locale                   : "en-US"
 title                    : "Ghifari Adam Faza"
 title_separator          : "-"
 name                     : &name "Ghifari Adam Faza"
-description              : &description "Hi!"
+description              : &description "Hi, I'm Ghifari, nice to meet you!"
 url                      : https://fazaghifari.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "fazaghifari/fazaghifari.github.io"
@@ -81,7 +81,7 @@ analytics:
 # Site Author
 author:
   name             : "Ghifari Adam Faza"
-  avatar           : "profile.png"
+  avatar           : "myphoto.jpg"
   bio              : "MSc Graduate in Aerospace Engineering. Looking for job opportunity in data science and analytics"
   location         : "Indonesia"
   employer         :
