@@ -43,7 +43,7 @@ Skills
 * MATLAB (3500++ lines)
 * LaTeX
 * SQL
-* Machine Learning
+* Machine Learning Frameworks(TensorFlow, PyTorch)
 * HTML
 * JavaScript
 * Computational Fluid Dynamics
