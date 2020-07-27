@@ -16,7 +16,9 @@ Education
 
 Work experience
 ======
-* **Aug 2018 - Now: Research Assistant**
+* **Jul 2020 - Now: Data Scientist-Content Developer**
+  * Pacmann.ai
+* **Aug 2018 - Jun 2020: Research Assistant**
   * Institut Teknologi Bandung
   * Duties included:
     * Build and develop optimization and uncertainty analysis framework based on Machine Learning algorithm using Python for    collaborative research with Tohoku University.
