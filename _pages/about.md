@@ -8,6 +8,6 @@ redirect_from:
   - /about.html
 ---
 
-Hi! I am Ghifari a recent MSc graduate in aerospace engineering from ITB and also a research assistant at [Flow Diagnostic Lab](https://flowdiagnostics.ftmd.itb.ac.id/) with interest in design optimization, uncertainty analysis, and machine learning. Currently, I am looking for an internship position with an opportunity to full-time job or a regular full-time job in data science and analytics. My prior works include developing a framework for engineering design analysis, optimization, and exploration using machine learning algorithms as well as doing computational fluid dynamics (CFD) analysis and finite element analysis (FEA). 
+Hi! I am Ghifari a Data Scientist-Content Developer at [Pacmann.ai]https://pacmann.ai/() and also a research collaborator at [Flow Diagnostic Lab](https://flowdiagnostics.ftmd.itb.ac.id/) with interest in design optimization, uncertainty analysis, and machine learning. My prior works include developing a framework for engineering design analysis, optimization, and exploration using machine learning algorithms as well as doing computational fluid dynamics (CFD) analysis and finite element analysis (FEA). 
 
-I have no specific hobby, but I do love playing games, playing badminton, and running. I also love experimenting with food in my mom's kitchen and sometimes, when I have nothing to do I spend my time on twitter.😁
+I have no specific hobby, but I do love playing games, playing badminton, and riding bicycle. I also love experimenting with food in my mom's kitchen and sometimes, when I have nothing to do I spend my time on twitter.😁
