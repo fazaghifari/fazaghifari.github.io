@@ -3,7 +3,7 @@ title: "Bayesian methods for multi-objective optimization of a supersonic wing p
 collection: publications
 permalink: /publication/Bayesian_methods_for_multi-objective_optimization_of_a_supersonic_wing_planform
 excerpt: 'This paper mainly discuss the implementation of multiobjective Bayesian optimization for a supersonic wing planform assisted with Gaussian process regression.'
-date: 2020-14-07
+date: 2020-07-14
 venue: 'GECCO 2020'
 paperurl: 'https://dl.acm.org/doi/10.1145/3377929.3398122'
 ---
