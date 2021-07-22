@@ -16,7 +16,7 @@ Education
 
 Work experience
 ======
-* **Jul 2020 - Now: Data Scientist-Content Developer**
+* **Jul 2020 - Now: Data Scientist**
   * Pacmann.ai
 * **Aug 2018 - Jun 2020: Research Assistant**
   * Institut Teknologi Bandung
