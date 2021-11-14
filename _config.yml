@@ -79,11 +79,11 @@ google_analytics       :  UA-123619469-3
 author:
   name             : "Ghifari Adam Faza"
   avatar           : "myphoto.jpg"
-  bio              : "MSc Graduate in Aerospace Engineering. Working at Pacmann.ai"
+  bio              : "Data Scientist at Pacmann.ai"
   location         : "Indonesia"
   employer         :
   pubmed           : #"https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
-  googlescholar    : #"http://yourfullgooglescholarurl.com"
+  googlescholar    : https://scholar.google.fi/citations?user=MQq8xN0AAAAJ&hl=en
   email            : "ghifariadamf@gmail.com"
   researchgate     : "https://www.researchgate.net/profile/Ghifari_Adam_Faza"
   uri              :
