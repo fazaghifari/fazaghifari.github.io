@@ -16,8 +16,33 @@ Education
 
 Work experience
 ======
-* **Jul 2020 - Now: Data Scientist**
-  * Pacmann.ai
+* **Aug 2021 - Now: Data Scientist**
+  * [Valiance](https://valiance.ai/)
+  * Duties Included:
+    * Analyzed, processed, and cleaned complex data sets using advanced data wrangling, visualization and analytic methods.
+    * Conduct an intensive research to solve complex problems.
+    * Build text information extraction models for knowledge graph such as:
+      * Entity coreference resolution.
+      * Graph construction from documents.
+      * Graph completion model.
+    * Defining a Standard Operation Procedure for Data Modeling in the company to make the modeling process faster.
+    * Pitch proposed solutions to our clients.
+    * Collaborate with MLOps and Software Engineer to deploy an end-to-end system.
+* **Jan 2021 - Aug 2021: Head of Product**
+  * Pacmann AI
+  * Duties Included:
+    * Initiate the first product team in the company.
+    * Lead the product team to develop and improve our Data Science training quality.
+    * Implement experiments for our product features, that includes initiate some new features such as project lab and career coaching.
+    * Helps the company to grow the product team.
+* **Jul 2020 - Jan 2021: Data Science Course Manager**
+  * Pacmann AI
+  * Duties Included:
+    * Develop Data Science course curriculum for beginner and career-switcher. 10/10 students love the curriculum structure.
+    * Implemented experiments to find the optimum curriculum.
+    * Performs QC on Data Science course materials such as: Python, Calculus, Probability, Econometrics, Intro to ML, Data Wrangling, etc.
+    * Initialize the product conceptual design, create business processes and SOPs. 
+    * Being one of the first hires, I helped the company to build a product team. 
 * **Aug 2018 - Jun 2020: Research Assistant**
   * Institut Teknologi Bandung
   * Duties included:
