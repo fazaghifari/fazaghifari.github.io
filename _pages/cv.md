@@ -16,7 +16,9 @@ Education
 
 Work experience
 ======
-* **Aug 2021 - Now: Data Scientist**
+* **Feb 2023 - Now: (Incoming) PhD Student
+  * KU Leuven campus Brugge 
+* **Aug 2021 - Nov 2022: Data Scientist**
   * [Valiance](https://valiance.ai/)
   * Duties Included:
     * Analyzed, processed, and cleaned complex data sets using advanced data wrangling, visualization and analytic methods.
