@@ -8,7 +8,7 @@ redirect_from:
   - /about.html
 ---
 
-Hello there! I am Adam, a self-proclaimed Data Scientist and current pingpong champion at [Valiance](https://valiance.ai/). I am also an unofficial research collaborator at [Flow Diagnostic Lab](https://flowdiagnostics.ftmd.itb.ac.id/). Currently, I have interest in optimization, uncertainty analysis, and machine learning towards engineering application. My prior works include developing a framework for engineering design analysis, optimization, and exploration using machine learning algorithms as well as performing computational fluid dynamics (CFD) analysis and finite element analysis (FEA). 
+Hello there! I am Adam, a self-proclaimed Data Scientist and an incoming PhD student at KU Leuven with topic of [Epistemic AI](http://epistemic-ai.eu). I am also an unofficial research collaborator at [Flow Diagnostic Lab](https://flowdiagnostics.ftmd.itb.ac.id/). Currently, I have interest in optimization, uncertainty analysis, and machine learning towards engineering application. My prior works as a professional Data Scientist include developing Knowledge Graph extraction model and other general ML models. In my ITB, my previous works includes the development of framework for engineering design analysis, optimization, and exploration using machine learning algorithms as well as performing computational fluid dynamics (CFD) analysis and finite element analysis (FEA). 
 
 I do love playing games, badminton, tennis, or just strolling around the city. Most of the time, you can find me very active retweeting cats and other random stuffs on twitter.
 
