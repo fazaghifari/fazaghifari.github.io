@@ -13,11 +13,12 @@ Education
 ======
 * B.Sc. in Aerospace Engineering, Institut Teknologi Bandung, Aug 2014 - Jun 2018
 * M.Sc. in Aerospace Engineering, Institut Teknologi Bandung, Aug 2018 - Jan 2020
+* PhD in Engineering Technology, KU Leuven, Feb 2023 - Now
 
 Work experience
 ======
-* **Feb 2023 - Now: (Incoming) PhD Student
-  * KU Leuven campus Brugge 
+* **Feb 2023 - Now: PhD Student
+  * Working on Epistemic uncertainty in AI (project link)[https://www.epistemic-ai.eu]
 * **Aug 2021 - Nov 2022: Data Scientist**
   * [Valiance](https://valiance.ai/)
   * Duties Included:
