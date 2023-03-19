@@ -17,7 +17,7 @@ Education
 
 Work experience
 ======
-* **Feb 2023 - Now: PhD Student
+* **Feb 2023 - Now: PhD Student**
   * Working on Epistemic uncertainty in AI (project link)[https://www.epistemic-ai.eu]
 * **Aug 2021 - Nov 2022: Data Scientist**
   * [Valiance](https://valiance.ai/)
