@@ -1,6 +1,6 @@
 ---
 title: "KADAL"
-excerpt: "<img width='500' src='/images/kadal.jpg'><br/>Kriging for Analysis, Design optimization, And expLoration (KADAL) is a Python code that contains collections of Bayesian Optimization tools including various surrogate modeling methods, sampling techniques, optimization methods, and uncertainty analyses tools including uncertainty quantification, sensitivity analysis, and reliability analysis."
+excerpt: "<img width='500' src='/images/kadal.jpg'><br/>Kriging for Analysis, Design optimization, And expLoration (KADAL) is a Python package that integrates a wide range of Bayesian Optimization tools. These include various surrogate modeling methods, sampling techniques, optimization methods, and tools for uncertainty analysis such as uncertainty quantification, sensitivity analysis, and reliability analysis. KADAL provides a comprehensive solution for analyzing, optimizing, and exploring complex systems with uncertainty."
 collection: portfolio
 ---
 
