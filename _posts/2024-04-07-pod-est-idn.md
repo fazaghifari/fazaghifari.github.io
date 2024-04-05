@@ -12,23 +12,23 @@ tags:
 ---
 
 Proper orthogonal decomposition (POD), juga dikenal dengan dekomposisi Karhunen-Loéve [1] adalah metode analisis teknik untuk  
-memperoleh aproksimasi dari representasi dimensi rendah untuk aliran turbulen [2], analisis struktur [3], dan sistem dinamik [4]. 
-In simple terms, POD transforms the full solution of a vector field into a set of simpler representations that can be easily handled. For example, we can decompose the fluid flow vector field as shown in image/video below to its simpler representation:
+memperoleh aproksimasi dari representasi dimensi rendah untuk aliran turbulen [2], analisis struktur [3], dan sistem dinamik [4].
+Sederhananya, POD mentransformasi bidang vektor seperti aliran fluida pada video dibawah menjadi representasi yang lebih ringkas.
 
 <p align="center">
   <img width="300" src='/images/pod_pce/karman_vortex.gif' class="center">
 </p>
 <p align="center">
-  <em>Figure 1. Fluid flow illustration.</em>
+  <em>Figure 1. Ilustrasi aliran fluida.</em>
 </p>
 <br/>
 
-If you are unfamiliar with this concept, you might be questioning "Why would I need a simpler/lower dimension representation of the fluid flow?". One of the most common uses is that we can use the lower dimension representation of the problem to **predict** the behaviour of the problem/system given unknown parameter(s). For example, if the video above depicts fluid flow from $t=0$ to $t=5$, we can use the lower-dimensional representation to predict the flow's shape at $t=6$.
+Sebagai orang awam, mungkin pada awalnya akan terasa cukup aneh. Mengapa kita butuh representasi yang lebih ringkas dari aliran fluida tersebut? Salah satu kasus yang umum adalah, representasi ringkasi dari aliran fluida tersebut dapat digunakan untuk memprediksi perilaku dari permasalahan tersebut jika diberikan parameter yang belum pernah terobservasi sebelumnya. Sebagai contoh, jika video di atas mendeskripsikan aliran fluida dari $t=0$ sampai $t=5$, kita dapat memprediksi bentuk alirannya saat $t=6$ dengan menggunakan representasi ringkas tadi.
 
-Consider that a single vector field can be constructed from a few to millions of elements or discretization points. Predicting each element for every time step is a complex task. Therefore, by employing Proper Orthogonal Decomposition (POD), we simplify the problem by predicting the lower-dimensional representation of the system rather than each individual element.
+Mengingat bahwa sebuah bidang vektor dapat terdiri dari beberapa sampai jutaan elemen. Memprediksi nilai tiap elemen pada bidang vektor tersebut bukanlah hal yang mudah. Sehingga, dengan POD, kita dapat menyederhanakan permasalahan tersebut dengan memprediksi representasi ringkasnya saja, alih-alih memprediksi tiap elemen.
 
-## POD Formulation
-### Input Data
+## Formulasi POD
+### Data Masukan
 POD requires an input format in the shape of $N \times m$ where $N$ is the number of elements or discretization in the problem, and $m$ is the number of parameter variations. In the context of our fluid flow scenario, the varying parameter is time $t$. Therefore, if desired, you can replace $m$ with $t$ in our current example. However, for the sake of generalization, I am using $m$. This $N \times m$ matrix is often referred to as the **snapshot matrix**. The schematic of the snapshot matrix construction is given in Figure 2:
 
 <p align="center">
