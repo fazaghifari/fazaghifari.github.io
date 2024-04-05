@@ -1,5 +1,5 @@
 ---
-title: 'Prediksi Bidang Vektor (Vector Field) Sederhana dengan Proper Orthogonal Decomposition dan Polynomial Chaos Expansion (POD-PCE)'
+title: 'Prediksi Bidang Vektor (Vector Field) Sederhana dengan Proper Orthogonal Decomposition dan Polynomial Chaos Expansion (POD-PCE) 🇮🇩'
 date: 2024-04-05
 permalink: /posts/2024/04/pod-pce-basic-id/
 tags:
@@ -19,7 +19,7 @@ Sederhananya, POD mentransformasi bidang vektor seperti aliran fluida pada video
   <img width="300" src='/images/pod_pce/karman_vortex.gif' class="center">
 </p>
 <p align="center">
-  <em>Figure 1. Ilustrasi aliran fluida.</em>
+  <em>Video 1. Ilustrasi aliran fluida.</em>
 </p>
 <br/>
 
@@ -29,27 +29,27 @@ Mengingat bahwa sebuah bidang vektor dapat terdiri dari beberapa sampai jutaan e
 
 ## Formulasi POD
 ### Data Masukan
-POD requires an input format in the shape of $N \times m$ where $N$ is the number of elements or discretization in the problem, and $m$ is the number of parameter variations. In the context of our fluid flow scenario, the varying parameter is time $t$. Therefore, if desired, you can replace $m$ with $t$ in our current example. However, for the sake of generalization, I am using $m$. This $N \times m$ matrix is often referred to as the **snapshot matrix**. The schematic of the snapshot matrix construction is given in Figure 2:
+Input standar dari POD adalah matriks dengan ukuran $N \times m$ dimana $N$ adalah jumlah dari elemen di dalam bidang vektor, dan $m$ adalah jumlah dari variasi parameter. Dalam kasus ini, parameter yang digunakan adalah waktu $t$. Sehingga, anda juga dapat mengganti variabel $m$ dengan $t$ dalam contoh ini. Matriks $N \times m$ ini seringkali disebut dengan matriks *snapshot*. Skematik dari pembentukan matriks *snapshot* ditunjukkan dalam gambar 2:
 
 <p align="center">
   <img width="400" src='/images/pod_pce/Snapshot Matrix.png' class="center">
 </p>
 <p align="center">
-  <em>Figure 2. Snapshot matrix construction schematics.</em>
+  <em>Gambar 2. Skematik pembentukan matriks *snapshot*.</em>
 </p>
 
-In the context of our fluid flow case, we should flatten the flow field data at each time step as shown in Figure 3. The flattened data are then arranged in a way such that each column of the snapshot matrix represents one timestep.
+Dalam kasus aliran fluida yang kita gunakan, data dari aliran fluida pada tiap langkah waktu perlu diratakan seperti yang terpampang pada gambar 3. Data yang telah diratakan kemudian disusun sedemikian rupa sehingga tiap kolom dari matriks *snapshot* merepresentasikan satu langkah waktu.
 
 <p align="center">
   <img width="400" src='/images/pod_pce/Turb Snapshot.png' class="center">
 </p>
 <p align="center">
-  <em>Figure 3. Fluid flow snapshot matrix construction process.</em>
+  <em>Gambar 3. Proses pembentukan matriks snapshot untuk kasus aliran fluida.</em>
 </p>
 
-To make things to be more practical, I will provide the Python code as a companion. The dataset that is used in this article can be downloaded [here](https://drive.google.com/file/d/1D-djGay_yPW7mScOA4XLysrUs1DXIkB9/view?usp=share_link).
+Agar lebih praktis, dalam artikel tutorial ini akan disertakan kode Python untuk melakukan analisis. Data yang digunakan dalam artikel ini dapat diunduh [disini](https://drive.google.com/file/d/1D-djGay_yPW7mScOA4XLysrUs1DXIkB9/view?usp=share_link).
 
-The given dataset has several components, namely `U_star` (x and y velocity field component), `p_star` (pressure field), `t_star` (time stamp), and `X_star` (spatial coordinate). In this article, we will only consider the **x velocity** component as our variable of interest and the spatial coordinate for plotting. First, we extract the dataset
+Data yang diberikan memiliki beberapa komponen diantaranya adalah `U_star` (komponen kecepatan arah $x$ dan $y$), `p_star` (komponen tekanan), `t_star` (waktu), and `X_star` (koordinat spasial). Pada artikel ini, kita akan fokus kepada **kecepatan x** sebagai variabel yang dianalisis dan koordinat spasial untuk membuat grafik. Pertama, kita ekstrak datanya:
 
  ```python
 import numpy as np
@@ -62,19 +62,19 @@ p_star = data['p_star']  # N x T
 t_star = data['t']  # T x 1
 x_star = data['X_star']  # N x 2
 ```
-Notice that all variables are already flattened. So actually, we don't need to flatten each variable by ourselves. However, it is important to know that for plotting purposes, we need to reshape the spatial coordinates `x_star` into the desired shape of $50 \times 100$. Notice that the shape of `x_star` is $N \times 2$, where the first column corresponds to the $x$ coordinate and the second column corresponds to $y$ coordinate.
+Dalam kasus ini, semua variabel sudah tersedia dalam bentuk yang telah diratakan. Sehingga, kita tidak perlu meratakannya sendiri. Namun, penting untuk diketahui, untuk membuat grafik, kita perlu untuk membentuk kembali data koordinat spasial `x_star` kedalam bentuk $50 \times 100$. Untuk kasus ini, bentuk asli dari `x_star` adalah $N \times 2$, dimana kolom pertama adalah koordinat $x$ dan kolom kedua adalah koordinat $y$.
 
 ```python
 # Reshape Data
 x_grid = x_star[:,0].reshape(50,100)
 y_grid = x_star[:,1].reshape(50,100)
 ```
-As we have decided that we will only consider the **x velocity** component as our variable of interest, we will only select the first component of the second axis from u_star `u_star[:,0,:]`. Notice that by selecting this, we already make an $N \times T$ matrix, which is the intended shape of our snapshot matrix. Therefore:
+Seperti yang sudah dijelaskan, dalam kasus ini kita hanya fokus kepada komponen **kecepatan x**, sehingga kita hanya akan memilih komponen pertama dari sumbu kedua dari u_star `u_star[:,0,:]`. Dengan melakukan pilihan seperti ini, kita telah membuat matriks dengan ukuran $N \times T$, yang sesuai dengan ukuran matriks *snapshot* yang diinginkan.
 
 ```python
 snapshot = u_star[:,0,:]
 ```
-Up to this point, we are basically done. However, if you want to plot one realization (one timestep) from the snapshot matrix, you can choose one column from the snapshot matrix, reshape the selected column into $50 \times 100$, and then plot a contour. The plotting result is supposed to look like Figure 4
+Sampai tahap ini, kita telah selesai untuk membuat matriks *snapshot*. Namun, jika anda ingin membuat grafik dari satu langkah waktu dari matriks *snapshot*, anda dapat memilih satu kolom dari matriks *snapshot*, membentuk kolom yang sudah dipilih menjadi $50 \times 100$, dan menggambar grafik. Hasil gambar grafiknya akan terlihat mirip seperti gambar 4.
 
 ```python
 single_snapshot = snapshot[:,42]  # Select one column (any column, here I choose column 42)
@@ -89,7 +89,7 @@ plt.ylabel('y')
   <img width="400" src='/images/pod_pce/output.png' class="center">
 </p>
 <p align="center">
-  <em>Figure 4. Single timestep fluid flow plot.</em>
+  <em>Gambar 4. Plot aliran fluida dalam satu waktu.</em>
 </p>
 
 ### Matrix Decomposition
