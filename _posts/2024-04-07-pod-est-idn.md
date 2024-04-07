@@ -1,6 +1,6 @@
 ---
 title: 'Prediksi Bidang Vektor (Vector Field) Sederhana dengan Proper Orthogonal Decomposition dan Polynomial Chaos Expansion (POD-PCE) 🇮🇩'
-date: 2024-04-05
+date: 2024-04-07
 permalink: /posts/2024/04/pod-pce-basic-id/
 tags:
   - regression
@@ -9,7 +9,10 @@ tags:
   - pce
   - pde
   - dimensionality reduction
+  - indonesian language
 ---
+
+Artikel versi bahasa inggris dapat diakses [disini](https://fazaghifari.github.io/posts/2024/04/pod-pce-basic-en/)
 
 Proper orthogonal decomposition (POD), juga dikenal dengan dekomposisi Karhunen-Loéve [1] adalah metode analisis teknik untuk  
 memperoleh aproksimasi dari representasi dimensi rendah untuk aliran turbulen [2], analisis struktur [3], dan sistem dinamik [4].
@@ -93,30 +96,31 @@ plt.ylabel('y')
 </p>
 
 ### Matrix Decomposition
-At the core of POD is the singular value decomposition (SVD) technique [5], which you may have encountered in your linear algebra course. For those who may have forgotten their linear algebra lessons or have not studied it, I'll make sure to explain the concept of POD as clearly and simply as possible.
+Algoritma dekomposisi nilai singular (SVD) [5] digunakan di dalam POD. Mungkin beberapa dari anda pernah atau telah mengetahui metode ini, namun, jika anda lupa, atau belum pernah belajar mengenai aljabar linear, saya akan menjelaskan kosep dari POD sesederhana mungkin.
 
-Supposed that we have any matrix $Y$, we can decompose $Y$ into $U$, $\Sigma$, and $V$ matrices (I will not dive into the details of the matrix decomposition, as nowadays we can use a library such as [numpy](https://numpy.org/doc/stable/reference/generated/numpy.linalg.svd.html) to perform SVD. However, if you are interested I strongly recommend [this video](https://www.youtube.com/watch?v=mBcLRGuAFUk) by Prof. Gilbert Strang himself 😉) 
+Dengan SVD, jika kita memiliki matriks $Y$, matriks tersebut dapat didekomposisi menjadi komponen matriks $Y$ into $U$, $\Sigma$ (Detail dari dekomposisi matriks tidak akan dijelaskan secara detil di dalam artikel ini, karena kita dapat menggunakan modul dari Python seperti [numpy](https://numpy.org/doc/stable/reference/generated/numpy.linalg.svd.html). Namun, jika anda tertarik, saya pribadi merekomendasikan [video ini](https://www.youtube.com/watch?v=mBcLRGuAFUk) oleh Prof. Gilbert Strang)
 
 $$
 Y = U \Sigma_r V^T
 $$
 
-In the context of our fluid flow POD, the $Y$ matrix serves as our snapshot matrix. Matrix $U$ can be interpreted as a matrix that represents spatial components. Similarly, matrix $V$ is a matrix that represents the other parameter components, or in this case, the time component. The $\Sigma_r$ matrix is an $r$-rank diagonal matrix that represents the "strength" or the importance of the corresponding basis. The diagonal of $\Sigma_r$ consists of the singular values of $Y$ which are arranged in decreasing order such that $\sigma_1 \geq \sigma_2 \geq \ldots \geq \sigma_r$. The rank $r$ of the Singular Value Decomposition (SVD) is determined by the smallest number between $N$ and $m$, mathematically written as $\min(N,m)$. The corresponding shape after the decomposition process is illustrated in Figure 5.
+Pada konteks kasus yang sedang kita bahas, matriks $Y$ adalah matriks *snapshot*. Matriks $U$ dapat diinterpretasikan sebagai matriks yang merepresentasikan komponen spasial. Matriks $V$ adalah matriks yang merepresentasikan komponen parameter lain, dalam kasus ini, adalah komponen waktu. Matriks $\Sigma_r$ adlaah matriks diagonal dengan *rank* $r$ yang merepresentasikan "kekuatan" dari basis yang sesuai. Nilai diagonal dari matriks $\Sigma_r$ terdiri dari nilai singular $Y$ yang disusun secara menurun sehingga $\sigma_1 \geq \sigma_2 \geq \ldots \geq \sigma_r$. Nilai *rank* $r$ dari dekomposisi nilai tunggal (SVD) ditentukan dari nilai terkecil antara $N$ dan $m$. Secara matematis, pernyataan ini dapat ditulis sebagai $\min(N,m)$. Bentuk dari hasil akhir dekomposisi diilustrasikan dalam Gambar 5.
 
 <p align="center">
   <img width="400" src='/images/pod_pce/svd_illust.png' class="center">
 </p>
 <p align="center">
-  <em>Figure 5. SVD illustration.</em>
+  <em>Gambar 5. Ilustrasi SVD.</em>
 </p>
 
-In Python, the SVD decomposition can be done easily. Here, we should pass the parameter `full_matrices=False` in order to get the desired output shape. Otherwise, we won't get the desired shape (you can read further (here)[https://numpy.org/doc/stable/reference/generated/numpy.linalg.svd.html]). As explained in the documentation, the default shape of `s` is a $r \times 1$ array, which mean in order to be consistent with our definition of $\Sigma_r$ we should transform it into a diagonal matrix. You should also pay attention that the output `vt` is already the transposed version of $V$.
+Dalam Python, dekomposisi SVD dapat dilakukan dengan mudah. Dalam melakukan dekomposisi ini kita perlu menyatakan parameter `full_matrices=False` agar mendapatkan bentuk *output* yang diinginkan. Jika tidak, bentuk yang didapatkan tidak akan sesuai (dapat dibaca (disini)[https://numpy.org/doc/stable/reference/generated/numpy.linalg.svd.html]). Seperti yang dijelaskan di dalam dokumentasi tersebut, bentuk bawaan dari `s` adalah array dengan bentuk $r \times 1$. Sehingga, agar konsisten dengan definisi $\Sigma_r$ kita perlu mengubahnya menjadi matriks diagonal. Perlu diperhatikan juga bahwa hasil dari `vt` merupakan matriks $V$ yang terlah di-*transpose*.
+
 ```python
 u,s,vt = np.linalg.svd(snapshot,full_matrices=False)
 sigma = np.diag(s)
 ```
 
-By assuming that $r = \min(N,m)$, you might notice that the final dimension of matrix $U$ is still the same with the original snapshot matrix. The fact that the decomposition result holds the same shape with the original matrix is computationally memory inefficient. Thus, we can further truncate $r$ by choosing a number $k$ such that $k < r$. First, we can set $k$ as a user-defined variable. Or second we can approximate the number of $k$ by:
+Dengan mengasumsikan bahwa $r = \min(N,m)$, kita mendapatkan bahwa dimensi akhir dari matriks $U$ masih sama dengan matriks *snapshot* aslinya. Sehingga, jika kita hanya berhenti sampai sini, hasil dari dekomposisi tersebut masih tidak efisien secara memori komputasi. Kita dapat memotong $r$ dengan memilih sebuah angka $k$ yang dimana $k < r$. Untuk menentukan nilai $k$, pertama kita dapat menentukan secara bebas bergantung pada masukan pengguna. Atau kita dapat melakukan aproksimasi nilai $k$ dengan:
 
 $$
 \begin{gathered}
@@ -125,7 +129,8 @@ $$
 \end{gathered}
 $$
 
-where $\sigma_i$ is the diagonal element of $\Sigma$ arranged in decreasing order such that $\sigma_1 \geq \sigma_2 \geq \ldots \geq \sigma_r$. Variable $\alpha$ can be interpreted as the amount of "variation" that can be explained by the truncated model. Or, in my free interpretation, it's the level of "accuracy" that we would like to retain in the truncated model. We typically choose $\alpha = 0.99$. (Note: the code for user-defined k and the corresponding truncation is left to the reader as an exercise.)
+dimana $\sigma_i$ adalah elemen diagonal dari $\Sigma$ yang disusun secara menurun sehingga $\sigma_1 \geq \sigma_2 \geq \ldots \geq \sigma_r$. Variabel $\alpha$ dapat diinterpretasikan sebagai besarnya "variasi" yang dapat dideskripsikan oleh model yang terpotong. Atau, menurut interpretasi bebas saya, variabel tersebut adalah tingkat "akurasi" yang ingin dijaga di dalam model yang terpotong. Biasanya, nilai yang dipilih adalah $\alpha = 0.99$. (Catatan: Kode untuk versi $k$ dengan input user tidak diberikan di dalam artikel ini dan diserahkan kepada pembaca sebagai latihan)
+
 ```python
 # Determine number k
 temp = 0
@@ -145,13 +150,14 @@ u_trunc = u[:,:k]
 vt_trunc = vt[:k,:]
 sigma_trunc = np.diag(s_trunc)
 ```
-Hence, now we have:
+
+Sehingga, kita memiliki:
 
 $$
 Y \approx U_k \Sigma_k V^T_k
 $$
 
-In POD, we often define a POD coefficients $B$, where $B_k = \Sigma_k V^T_k$, $B_k \in \mathbb{R}^{k \times m}$. Thus, our equation now becomes:
+Dalam POD, kita definisikan koefisien POD $B$, dimana $B_k = \Sigma_k V^T_k$, $B_k \in \mathbb{R}^{k \times m}$. Sehingga persamaannya menjadi:
 
 $$
 Y \approx U_k B_k
@@ -160,25 +166,25 @@ $$
 ```python
 pod_coeff = sigma_trunc @ vt_trunc
 ```
-The Proper Orthogonal Decomposition (POD) comprises two major components: the spatial basis matrix $U$ and the physical parameter component represented by the POD coefficient $B$. The spatial basis matrix $U$, as the name implies, provides a foundation for constructing the full-order solution. Each column in the matrix $U$ represents different modes of the full-order solution. Put simply, these modes serve as the fundamental ingredients (basis) for forming the full-order solution. By blending (adding) these modes with the appropriate proportion (coefficients), we can derive the correct full-order solution. The plot depicting the first-order basis, second-order basis, and full-order solution can be found in Figure 6. At this juncture, our work with matrix $U$ is complete, and we will preserve this matrix for future use.
+Proper Orthogonal Decomposition (POD) terdiri dari dua komponen besar: komponen matriks basis spasial $U$ dan komponen parameter fisik yang direpresentasikan oleh koefisien POD $B$. Matriks basis spasial $U$, sebagaimana namanya, adalah elemen dasar untuk membentuk solusi penuh dari permasalahan aliran fluida yang kita bahas. Tiap kolom dalam matriks $U$ merepresentasikan masing-masing mode dari solusi penuh sebuah permasalahan. Secara sederhana, mode ini adalah bahan-bahan dasar, dengan menggabungkan mode-mode tersebut dengan proporsi (koefisien) yang sesuai, kira dapat merekonstruksi solusi dari permasalah aliran fluida tersebut. Grafik yang menggambarkan basis orde pertama, orde kedua, dan solusi penuh dari aliran fluida tersedia pada Gambar 6. Pada tahap ini, kita akan menyimpan matriks $U$ untuk digunakan di waktu yang akan datang.
 
 <p align="center">
   <img width="700" src='/images/pod_pce/spatial_basis.png' class="center">
 </p>
 <p align="center">
-  <em>Figure 6. Different spatial basis up to second-order basis.</em>
+  <em>Gambar 6. Basis spasial dari aliran fluida.</em>
 </p>
 
-A single column in the POD coefficient matrix $B$ provides a correct "proportion" for the spatial basis $U$ to form a single full-order solution for a given parameter, or in our case, for one timestep, represented by a single column in our snapshot matrix $Y$. As shown in Figure 7, the red column in $Y$ represents the vector field of the problem for a given parameter. Similarly, each green column in $B$, represents a vector of coefficients for the same parameter as the red column. In other words, if the red column corresponds to the flattened fluid flow at $t=0$, then the green column corresponds to a set of coefficients that govern the spatial basis matrix $U$ at $t=0$ to form the red column.
+Satu kolom di dalam matriks koefisien POD $B$ merepresentasikan "proporsi" dari basis spasial $U$ untuk membentuk sebuah solusi penuh untuk satu parameter, dalam kasus kita, dalam satu waktu. Seperti yang ditunjukkan pada Gambar 7, kolom berwarna merah pada $Y$ merepresentasikan suatu bidang vektor dari sebuah permasalahan untuk satu konfigurasi parameter. Serupa dengan itu, kolom berwarna hijau dalam $B$ merepresentasikan vektor dari koefisien untuk parameter yang sama dengan kolom merah. Dalam kata lain, jika kolom merah merpakan matriks dari aliran fluida pada $t=0$ yang telah diratakan, maka kolom hijau adalah kumpulan dari koefisien yang mengatur matriks basis spasial $U$ pada $t=0$ untuk membentuk kolom merah.
 
 <p align="center">
   <img width="400" src='/images/pod_pce/pod_coeff_new.png' class="center">
 </p>
 <p align="center">
-  <em>Figure 7. POD illustrations.</em>
+  <em>Gambar 7. Ilustrasi POD.</em>
 </p>
 
-By this logic, if we are able to somehow predict the value of coefficients at any $t$, then we are also able to predict the fluid flow behavior at any $y$. This implies that we can also predict the future fluid flow behaviour if we are able to predict the future value of our POD. coefficients.
+Dengan logika ini, maka jika kita dapat memprediksi nilai koefisien untuk nilai $t$ sembarang, maka kita juga dapat memprediksi perilaku aliran fluida pada $t$ sembarang. 
 
 ## Regression
 ### General Idea
@@ -187,34 +193,34 @@ By this logic, if we are able to somehow predict the value of coefficients at an
   <img width="400" src='/images/pod_pce/pod_mapping.png' class="center">
 </p>
 <p align="center">
-  <em>Figure 8. Mapping between problem parameters (time) to POD coefficients.</em>
+  <em>Gambar 8. Pemetaan antara parameter permasalahan $t$ dengan koefisien POD.</em>
 </p>
 
-Figure 8 shows that if we are able to construct a function that maps between the physical parameters and the POD coefficient, then we can predict the POD coefficient given an unseen/unknown value of the parameter. Given that we already have the data, we can construct a regressor that learns from the available data to be able to approximate the POD coefficients given input parameters.
+Gambar 8 menunjukkan jika kita dapat membuat fungsi yang memetakan antara parameter fisik dan koefisien POD, maka kita dapat memprediksi nilai dari koefisien POD jika diberikan nilai parameter yang tidak diketahui sebelumnya. Karena kita sudah memiliki datanya, kita dapat membuat model regresi yang belajar dari data yang tersedia untuk mengaproksimasi koefisien POD.
 
 $$
 \hat{b} = f(t)
 $$
 
-Basically, we can employ any kind of regressor that is able to predict a continuous value. However, we should be aware that most of the regression techniques, at least the ones that are available in [scikit-learn](https://scikit-learn.org/stable/supervised_learning.html#supervised-learning), are only able to handle one-to-one or many-to-one mapping. This means that the regression models are able to handle, at most, many inputs and single output. However, in our case, we have a single input and multiple outputs with the size of $k$. Hence, in our case, we need $k$ number of regressor. The first regressor uses the first row of matrix $B$ as its target variable, the second regressor uses the second row of matrix $B$, and so on as illustrated in Figure 9.
+Pada dasarnya, kita dapat menggunakan model regresi apapun yang dapat memprediksi nilai kontinu. Namun, perlu diperhatikan bahwa kebanyakan teknik regresi yang tersedia, setidaknya yang tersedia dalam [scikit-learn](https://scikit-learn.org/stable/supervised_learning.html#supervised-learning) hanya dapat menangani pemetaan *one-to-one* atau *many-to-one*. Yang berarti model regresinya dapat menangani permasalahan dengan banyak input dan satu output. Namun, dalam kasus kita, kita memiliki satu input dan banyak output dengan ukuran $k$. Sehingga, dalam kasis kita, kita membutuhkan model regresi sebanyak $k$. Model regresi pertama memprediksi baris pertama dari matriks $B$, model regresi kedua untuk baris kedua, dan seterusnya seperti yang ditunjukkan pada Gambar 9.
 
 <p align="center">
   <img width="400" src='/images/pod_pce/regression scheme.png' class="center">
 </p>
 <p align="center">
-  <em>Figure 9. POD coefficient regression scheme.</em>
+  <em>Gambar 9. Skema regresi koefisien POD.</em>
 </p>
 
-### Polynomial Chaos Expansion (PCE) Regression
-PCE regression [6] is a popular technique in the field of uncertainty quantification (UQ), where it is often used as an approximation (surrogate model) of expensive evaluation functions  such as experiments and expensive simulations. A simple polynomial regression is mathematically written as:
+### Regresi Polynomial Chaos Expansion (PCE)
+Regresi PCE [6] adalah teknik yang populer digunakan dalam bidan kuantifikasi ketidakpastian (UQ), dimana regresi PCE sering digunakan sebagai aproksimasi (*surrogate model*) dari fungsi evaluasi yang kompleks dan mahal untuk dilakukan seperti eksperimen dan simulasi yang kompleks. Regresi polinomial sederhana secara matematis ditulis sebagai:
 
 $$
 \hat{f}(X) = \sum_\alpha c_\alpha X^\alpha,
 $$
 
-where $\alpha$ is the degree of the polynomial, and $c_\alpha$ is the coefficient for the corresponding degree. Therefore, if for example, we have $\alpha = 2$, then we have a quadratic formula $\hat{f}(X) = c_0 + c_1 X + c_2 X^2$. 
+dimana $\alpha$ adalah derajat dari polinomial, dan $c_\alpha$ adalah koefisien dari polinomial. Sehingga sebagai contoh, jika kita memiliki $\alpha = 2$, maka kita akan mendapatkan persamaan kuadratik $\hat{f}(X) = c_0 + c_1 X + c_2 X^2$. 
 
-PCE regression has a similar structure as polynomial regression. However, instead of using the original input as a basis, PCE uses an orthogonal polynomial basis in terms of random variable such as Hermite polynomials, Laguerre polynomials, Legendre polynomials, etc (Legendre polynomial illustration given in Figure 10). The orthogonal polynomial basis is written as $\phi(X)$. Thus, we have:
+Regresi PCE memiliki struktur yang mirip dengan regresi polinomial. Namun, alih-alih menggunakan input awal sebagai basis, PCE menggunakan polinomial ortogonal sebagai basis. Beberapa tipe yang sering digunakan adalah polinomial Hermite, polinomial Laguerre, dan polinomial Legendre. Ilustrasi dari polinomial Legendre diberikan dalam Gambar 10. Basis polinomial ortogonal ini ditulis dengan $\phi(X)$.
 
 $$
 \hat{f}(X) = \sum_{\alpha \in \mathbb{N}^d} c_\alpha \phi_\alpha(X),
@@ -224,25 +230,25 @@ $$
   <img width="400" src='/images/pod_pce/legendrepolynomials6.png' class="center">
 </p>
 <p align="center">
-  <em>Figure 10. The first six Legendre polynomials [7].</em>
+  <em>Gambar 10. Ilustrasi 6 polinomial Legendre pertama [7].</em>
 </p>
-The advantage of using these kinds of orthogonal polynomials instead of the original input as a basis is that it offers more flexibility to fit a more complex relation between the parameter of the physical problem and the POD coefficients. 
+Keuntungan dengan menggunakan polinomial ortoginal seperti ini alih-alih menggunakan input original sebagai basis adalah fleksibilitas untuk membentuk relasi kompleks antara parameter fisik dengan koefisien POD.
 
-To avoid the high computational effort in equation 6 due to the summation over the whole domain, we replace the infinite summation in an infinite domain with a finite-term summation:
+Untuk menghindari komputasi yang kompleks pada persamaan 6 karena penjumlahan dari seluruh domain, penjumlahan tak terhingga dalam domain tak terhingga tersebut diganti dengan penjumlahan terhingga:
 
 $$
   \hat{f}(X) \approx \sum_{\boldsymbol{\alpha = 0}}^S c_\alpha \phi_\alpha(\boldsymbol{X}),
 $$
 
-where the number of expansion terms $S+1$ is a function of the dimensions $(d)$ of $\boldsymbol{X}$ and the highest order $(p)$ of the polynomials $\phi(X)$ [8], defined as:
+dimana jumlah dari suku ekspansi $S+1$ adalah fungsi dari dimensi $d$ dari $\boldsymbol{X}$ dan orde tertinggi $p$ dari polinomial $\phi(X)$ [8], didefinisikan sebagai:
 
 $$
   S := \sum_{j=1}^p \frac{1}{j!} \prod_{r=0}^{j-1} (d+r) = \frac{(d+p)!}{d!p!}.
 $$
 
-Although it looks a bit intimidating at first, we can make a PCE regression model easily using a Python library such as [Chaospy](https://chaospy.readthedocs.io/en/master/user_guide/advanced_topics/advanced_regression_method.html).
+Walaupun terlihat sedikit mengintimidasi, kita dapat membuat model regresi PCE dengan mudah dengan menggunakan modul Python seperti [Chaospy](https://chaospy.readthedocs.io/en/master/user_guide/advanced_topics/advanced_regression_method.html).
 
-Now, we have a pair between physical parameters (time $t$) and $k$ number of POD coefficient vectors. In this case, we have $k=7$ from the approximation method. Let's also take a look at the plot between $t$ and the first and second POD coefficient
+Sekarang, kita memiliki pasangan antara parameter fisik dan vektor koefisien POD berjumlah $k$. Dalam kasus ini nilai $k=7$ yang diperoleh dari metode aproksimasi. Mari kita lihat grafik antara waktu $t$ dan dua koefisien POD pertama:
 
 ```python
 print(f"POD coefficient shape: {pod_coeff.shape}")
@@ -264,10 +270,10 @@ plt.show()
   <img width="700" src='/images/pod_pce/coeff_vs_t.png' class="center">
 </p>
 <p align="center">
-  <em>Figure 11. Plot between time and the first two POD coefficients.</em>
+  <em>Gambar 11. Grafik antara waktu dan nilai dua koefisien POD pertama.</em>
 </p>
 
-It's evident that the relationship between time and the first two POD coefficients exhibits periodicity, and the same may apply to the others. It's crucial to note that standard PCE may not effectively model periodic data and you might need a more suitable algorithm. Nevertheless, for the purpose of this brief and basic tutorial, I will proceed with standard PCE regression solely for demonstration purposes. The PCE code below is written using chaospy library. However, I will not go through line-by-line, a more complete explanation on using chaospy library can be found in its [documentation](https://chaospy.readthedocs.io/en/master/user_guide/advanced_topics/advanced_regression_method.html). 
+Jelas terlihat bahwa hubungan antara waktu dan dua koefisien POD pertama memiliki hubungan peridoing, dan kemungkinan juga pada koefisien lainnya. Penting untuk dicatat bahwa versi dasar dari PCE mungkin tidak akan secara efektif memodelkan hubungan periodik, sehingga anda mungkin akan memerlukan model yang lebih cocok. Namun demikian, untuk tujuan tutorial dasar dan singkat, saya akan melanjutkan dengan versi dasar PCE sebagai demonstrasi. Kode PCE dibawah ditulis dengan menggunakan modul chaospy. Namun, saya tidak akan membahas per baris, penjelasan yang lebih mendetil mengenai chaospy dapat ditemukan dalam [dokumentasi resmi](https://chaospy.readthedocs.io/en/master/user_guide/advanced_topics/advanced_regression_method.html).
 
 ```python
 import chaospy
@@ -293,15 +299,14 @@ def train_pce(x, pod_coeff):
     return pce_list
 ```
 
-We will only use data from $0$s to $7.5$s to train the model.
+Kita hanya akan menggunakan data dari waktu $0$s sapai $7.5$s untuk melatih modelnya.
 
 ```python
 t_train = t_star.flatten()[:75]
 coeff_train = pod_coeff[:,:75]
 pce_list = train_pce(t_train, coeff_train)
 ```
-
-Now, we'll try to predict the POD coefficient from 0-8s.
+Sekarang, kita akan prediksi koefisien POD dari waktu 0-8s.
 
 ```python
 first_coeffs = pce_list[0](np.linspace(0,8,500)/20)
@@ -327,12 +332,12 @@ plt.show()
   <img width="700" src='/images/pod_pce/fit_pod.png' class="center">
 </p>
 <p align="center">
-  <em>Figure 12. Plot between time and the predicted first two POD coefficients.</em>
+  <em>Gambar 12. Grafik antara waktu dan nilai dua koefisien POD pertama yang diprediksi.</em>
 </p>
 
-The predictive outcome based on the first 2 POD coefficients suggests that the PCE has not successfully captured the periodicity component from the POD coefficient despite of good fit in the training data region. Hence, a more appropriate model needs to be employed. However, I leave this task to the reader as an exercise.
+Hasil prediksi dari dua koefisien POD pertama menunjukkan bahwa PCE tidak bisa menangkap komponen periodik dari data koefisien POD, bahkan ketika model menunjukkan hasil yang baik dalam data latih. Sehinnga, perlu digunakan model yang lebih cocok. Namun, tugas ini saya serahkan kepada pembaca sebagai latihan.
 
-Assuming that we have an appropriate model to predict the POD coefficient behaviour, now we predict the full flow field. Given that we already have the predicted POD coefficient, obtaining the full flow field can be easily done by:
+Dengan mengasumsikan bahwa kita memiliki model yang tepat untuk memprediksi perilaku koefisien POD, kita dapat memprediksi solusi dari aliran fluida. Dengan sebelumnya kita telah memiliki koefisien POD yang telah diprediksi, solusi dari aliran fluida dapat dihitung dengan:
 
 $$
 Y \approx U_k B_k
@@ -378,12 +383,12 @@ plt.show()
   <img width="700" src='/images/pod_pce/predict_field.png' class="center">
 </p>
 <p align="center">
-  <em>Figure 13. Predicted flow field at t=7.7 s.</em>
+  <em>Gambar 13. Prediksi aliran fluida pada t=7.7 s.</em>
 </p>
 
-Finally, we can conclude that proper orthogonal decomposition provides an effective way to reduce the dimensionality/complexity of the vector field problem into its lower dimension. However, to be able to accurately predict the behaviour of the system, a suitable prediction model needs to be chosen correctly. Nonetheless, this quick tutorial and overview provide a general idea of how to perform prediction on a complex vector field such as a flow field by reducing its dimensionality through proper orthogonal decomposition.
+Akhirnya, kita dapat menyimpulkan bahwa teknik proper orthogonal decomposition (POD) memberikan metode yang efektif untuk mengurangi dimensi/kompleksitas dari permasalahan bidang vektor. Namun, agar dapat memprediksi perilaku sistem dengan akurat, model prediksi yang sesuai perlu untuk dipilih dengan benar. Meskipun demikian, artikel tutorial ini memberikan gambaran dan ide umum untuk bagaimana melakukan prediksi pada permasalahan bidang vektor yang kompleks, seperti aliran fluida, dengan cara mereduksi dimensi dengan menggunakan proper orthogonal decomposition.
 
-How to cite this article:
+Sitasi artikel ini:
 ```latex
 @misc{faza2024basicpodpce,
    author =       {Faza, Ghifari Adam},
