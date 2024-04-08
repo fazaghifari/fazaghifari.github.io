@@ -13,7 +13,7 @@ Education
 ======
 * B.Sc. in Aerospace Engineering, Institut Teknologi Bandung, Aug 2014 - Jun 2018
 * M.Sc. in Aerospace Engineering, Institut Teknologi Bandung, Aug 2018 - Jan 2020
-* PhD in Mechanical Engineering, KU Leuven, Feb 2023 - Now
+* PhD in Mechanical Engineering (Uncertainty quantification methods in AI for mechanical engineering problems), KU Leuven, Feb 2023 - Now
 
 Work experience
 ======
