@@ -11,6 +11,7 @@ tags:
   - dimensionality reduction
   - indonesian language
 ---
+Dalam artikel ini, kita mengeksplorasi penggunaan proper orthogonal decomposition (POD) dan polynomial chaos expansion (PCE) sebagai surrogate model untuk memprediksi perilaku bidang vektor pada rentang waktu sembarang. Dibandingkan dengan metode surrogate model standar lainnya seperti regresi PCE standar atau regresi Gaussian process (GP) standar, penambahan komponen POD memiliki kelebihan untuk menganalisis data dalam bidang vektor dengan mentransformasi bidang vektor seperti aliran fluida pada video dibawah menjadi representasi yang lebih ringkas.
 
 Artikel versi bahasa inggris dapat diakses [disini](https://fazaghifari.github.io/posts/2024/04/pod-pce-basic-en/)
 
