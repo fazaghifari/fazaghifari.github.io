@@ -69,15 +69,12 @@ Work experience
   
 Skills
 ======
-* Python (5000++ lines)
-* MATLAB (3500++ lines)
+* Scientific Computing (Python, Matlab)
 * LaTeX
 * SQL
 * Machine Learning Frameworks(TensorFlow, PyTorch)
-* HTML
-* JavaScript
-* Computational Fluid Dynamics
-* Finite Element Analysis
+* Basic Web Development
+* Computational physics (CFD, FEA)
 
 Publications
 ======
