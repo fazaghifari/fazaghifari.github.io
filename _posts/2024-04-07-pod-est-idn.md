@@ -45,7 +45,7 @@ Input standar dari POD adalah matriks dengan ukuran $N \times m$ dimana $N$ adal
 Dalam kasus aliran fluida yang kita gunakan, data dari aliran fluida pada tiap langkah waktu perlu diratakan seperti yang terpampang pada gambar 3. Data yang telah diratakan kemudian disusun sedemikian rupa sehingga tiap kolom dari matriks *snapshot* merepresentasikan satu langkah waktu.
 
 <p align="center">
-  <img width="400" src='/images/pod_pce/Turb Snapshot.png' class="center">
+  <img width="550" src='/images/pod_pce/Turb Snapshot.png' class="center">
 </p>
 <p align="center">
   <em>Gambar 3. Proses pembentukan matriks snapshot untuk kasus aliran fluida.</em>
