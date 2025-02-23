@@ -82,6 +82,6 @@ How to cite this article:
    title =        {Simple robust optimization tutorial},
    month =        {February},
    year =         {2025},
-   url =          {https://fazaghifari.github.io/posts/2025/02/rob-opt-en/},
+   url =          {https://fazaghifari.github.io/posts/2025/03/rob-opt-en/},
  }
 ```
