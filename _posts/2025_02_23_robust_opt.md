@@ -18,7 +18,50 @@ $$
 t_{\dagger} = [\underline{t},\overline{t}].
 $$
 
-Thus, you can place the interval cost (in this sense, the time) over the road section (graph edges).  Now to make everything's clearer, let's consider a simple routing problem from this graph (download [here](https://drive.google.com/file/d/1n6yxpwlt8EiIsPzBVQREe0_wQr1mue_y/view?usp=sharing)). 
+Thus, you can place the interval cost (in this sense, the time) over the road section (graph edges).  Now to make everything clearer, let's consider a simple routing problem from this graph (download [here](https://drive.google.com/file/d/1n6yxpwlt8EiIsPzBVQREe0_wQr1mue_y/view?usp=sharing)). We will use Python throughout this tutorial and Gurobi (academic license) as the optimization solver. First, let's import the required libraries.
+
+```python
+import numpy as np
+import pandas as pd
+import networkx as nx
+import matplotlib.pyplot as plt
+import gurobipy as gp
+```
+Since the data is in text format, we have to parse the data into graph components:
+```python
+def parse_data(filename):
+    with open(filename) as f:
+        lines = [line.rstrip('\n') for line in f]
+    k = int(lines[0])  # maximum number of arcs suggested
+    nodes = lines[1].split()  # list of nodes
+    edges = []  # list of edges
+    edge_labels = {}  # edge labels
+    for line in lines[2:]:
+        splitline = line.split()
+        edge = tuple(splitline[:2])
+        edges.append(edge)
+        edge_labels [edge] = [float(a) for a in splitline[2:]]
+    
+    edge_list= ["_".join(tup) for tup in edges]
+    return k, nodes, edge_list, edge_labels
+```
+and finally draw the graph
+```python
+k, nodes, edge_list, edge_labels = parse_data("simple_route.dat")
+
+G = nx.DiGraph()
+edges = edge_labels.keys()
+G.add_edges_from(edges)
+
+pos = nx.spring_layout(G, seed=42)
+nx.draw(G, pos, with_labels=True)
+nx.draw_networkx_edge_labels(
+    G, pos,
+    edge_labels=edge_labels,
+    font_color='red'
+)
+plt.show()
+```
 
 
 How to cite this article:
