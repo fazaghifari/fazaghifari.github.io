@@ -62,6 +62,12 @@ nx.draw_networkx_edge_labels(
 )
 plt.show()
 ```
+<p align="center">
+  <img width="550" src='/images/pod_pce/Turb Snapshot.png' class="center">
+</p>
+<p align="center">
+  <em>Figure 3. Fluid flow snapshot matrix construction process.</em>
+</p>
 
 
 How to cite this article:
