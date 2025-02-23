@@ -77,7 +77,7 @@ It is important to note that in this tutorial, we simplify the problem a little 
 
 How to cite this article:
 ```latex
-@misc{faza2024mdplptutorial,
+@misc{faza2025robustopttutorial,
    author =       {Faza, Ghifari Adam},
    title =        {Simple robust optimization tutorial},
    month =        {February},
