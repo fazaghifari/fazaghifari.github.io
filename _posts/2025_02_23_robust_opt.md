@@ -1,6 +1,6 @@
 ---
 title: 'Simple robust optimization tutorial'
-date: 2025-02-23
+date: 2025-02-03
 permalink: /posts/2025/02/rob-opt-en/
 tags:
   - robust optimization
