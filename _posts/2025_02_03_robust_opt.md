@@ -1,7 +1,7 @@
 ---
 title: 'Simple robust optimization tutorial'
 date: 2025-02-03
-permalink: /posts/2025/02/rob-opt-en/
+permalink: /posts/2025/03/rob-opt-en/
 tags:
   - robust optimization
   - linear programming
