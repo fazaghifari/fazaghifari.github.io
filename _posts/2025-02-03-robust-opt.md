@@ -71,9 +71,49 @@ plt.show()
   <em>Figure 1. Simple routing problem with uncertain weight.</em>
 </p>
 
-In this problem, the taxi driver needs to travel from $s$ to $t$ using one of several possible routes, each affected by interval uncertainty. For example, on the path $s \rightarrow 1$, the travel time can range from a minimum of 1.5 minutes to a maximum of 19.7 minutes, depending on factors like traffic congestion or roadblocks. This variability means that the actual time required for each route isn’t fixed but lies within a given interval, adding uncertainty to the decision-making process.
+In this problem, the taxi driver needs to travel from $s$ to $t$ using one of several possible routes, each affected by interval uncertainty. For example, on the path $s \rightarrow 1$, the travel time can range from a minimum of 1.5 minutes to a maximum of 19.7 minutes, depending on factors like traffic congestion or roadblocks. This variability means that the actual time required for each route isn’t fixed but lies within a given interval, adding uncertainty to the decision-making process. From the data, we can also extract the edge labels and infer each possible path. The extracted edge labels are given by:
+```
+{('s', '1'): [1.5, 19.7],
+ ('s', '2'): [14.5, 22.3],
+ ('1', '2'): [5.2, 5.2],
+ ('1', 't'): [6.3, 21.9],
+ ('1', '3'): [2.6, 9.1],
+ ('2', 't'): [6.3, 8.9],
+ ('3', 't'): [6.3, 12.8]}
+```
+while each possible path can be obtained using `nx.all_simple_paths()` resulting in:
+```
+[['s', '1', '2', 't'], ['s', '1', 't'], ['s', '1', '3', 't'], ['s', '2', 't']]
+```
 
-It is important to note that in this tutorial, we simplify the problem a little bit. We determine $k=1$, where $k$ is the maximum number of arcs for which the travel time will be at the upper bound, with the travel time of all other arcs being at the lower bound. Simply put, when the algorithms plan the optimal direction, it only assumes that only one road section will be on the maximum value.
+It is important to note that in this tutorial, we simplify the problem a little bit. We determine $k=1$, where $k$ is the maximum number of arcs for which the travel time will be at the upper bound, with the travel time of all other arcs being at the lower bound. Simply put, when the algorithms plan the optimal direction, it only assumes that only one road section will be on the maximum value. Thus, we can extract the uncertainty set which corresponds to this setting:
+```python
+def uncset(edge_labels):
+  # Note: This function is not generalizable to k>1
+  uset = []
+  for i in range(len(edge_labels)):
+      temp = []
+      for j,val in enumerate(edge_labels.values()):
+          if i == j:
+              temp.append(val[1])
+          else:
+              temp.append(val[0])
+      uset.append(temp)
+  
+  return uset
+```
+which obtains the following uncertainty set:
+```
+[[19.7, 14.5, 5.2, 6.3, 2.6, 6.3, 6.3],
+ [1.5, 22.3, 5.2, 6.3, 2.6, 6.3, 6.3],
+ [1.5, 14.5, 5.2, 6.3, 2.6, 6.3, 6.3],
+ [1.5, 14.5, 5.2, 21.9, 2.6, 6.3, 6.3],
+ [1.5, 14.5, 5.2, 6.3, 9.1, 6.3, 6.3],
+ [1.5, 14.5, 5.2, 6.3, 2.6, 8.9, 6.3],
+ [1.5, 14.5, 5.2, 6.3, 2.6, 6.3, 12.8]]
+```
+where each column in the array corresponds to each arc in the graph.
+
 
 How to cite this article:
 ```latex
