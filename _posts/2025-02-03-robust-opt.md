@@ -115,6 +115,27 @@ which obtains the following uncertainty set:
 where each column in the array corresponds to each arc in the graph.
 
 
+# Robust Optimization Formulation
+
+There are several strategies to find a robust solution. Depending on the circumstances, we can choose or modify it as we like, tailored to the specific problem. In this article, we will discuss three common strategies: worst-case, additive regret, and multiplicative regret.
+
+## Worst-case
+As the name implies, this strategy searches for the optimum worst-case solution. In this case, the objective is to minimize the worst-case(maximum) solution. This statement is mathematically translated to:
+
+$$
+\min_{x \in X} \max_{c \in \mathcal{U}} c(x).
+$$
+
+Since we are optimizing (minimizing) an uncertain objective, we can rewrite the formulation as:
+
+$$
+\begin{align}
+\min \quad & t \\
+\text{s.t.} \quad & t \geq c(x), \ \forall c \in \mathcal{U}\\
+ & x \in X
+\end{align}
+$$
+
 TO BE CONTINUED...
 
 How to cite this article:
