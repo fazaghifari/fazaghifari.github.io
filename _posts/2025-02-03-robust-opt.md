@@ -20,7 +20,7 @@ $$
 
 This allows you to represent travel time on each road segment (graph edge) as an interval rather than a fixed value, accounting for possible variations. 
 
-To make this more concrete, let’s consider a simple routing problem using the following graph (download [here](https://drive.google.com/file/d/1n6yxpwlt8EiIsPzBVQREe0_wQr1mue_y/view?usp=sharing)). Throughout this tutorial, we'll use Python and Gurobi (academic license) as our optimization solver. First, let's import the required libraries.
+To make this more concrete, let’s consider a simple routing problem using the following graph (download [here](https://drive.google.com/file/d/1n6yxpwlt8EiIsPzBVQREe0_wQr1mue_y/view?usp=sharing)). Throughout this tutorial, we'll use Python and Gurobi (academic license) as our optimisation solver. First, let's import the required libraries.
 
 ```python
 import numpy as np
@@ -47,7 +47,7 @@ def parse_data(filename):
     edge_list= ["_".join(tup) for tup in edges]
     return k, nodes, edge_list, edge_labels
 ```
-and finally, draw the graph:
+And finally, draw the graph:
 ```python
 k, nodes, edge_list, edge_labels = parse_data("simple_route.dat")
 
@@ -81,7 +81,7 @@ In this problem, the taxi driver needs to travel from $s$ to $t$ using one of se
  ('2', 't'): [6.3, 8.9],
  ('3', 't'): [6.3, 12.8]}
 ```
-while each possible path can be obtained using `nx.all_simple_paths()` resulting in:
+while each possible path can be obtained using `nx.all_simple_paths()`, resulting in:
 ```
 [['s', '1', '2', 't'], ['s', '1', 't'], ['s', '1', '3', 't'], ['s', '2', 't']]
 ```
@@ -115,26 +115,93 @@ which obtains the following uncertainty set:
 where each column in the array corresponds to each arc in the graph.
 
 
-# Robust Optimization Formulation
+# Robust Optimisation Formulation
 
 There are several strategies to find a robust solution. Depending on the circumstances, we can choose or modify it as we like, tailored to the specific problem. In this article, we will discuss three common strategies: worst-case, additive regret, and multiplicative regret.
 
 ## Worst-case
-As the name implies, this strategy searches for the optimum worst-case solution. In this case, the objective is to minimize the worst-case(maximum) solution. This statement is mathematically translated to:
+As the name implies, this strategy searches for the optimum worst-case solution. In this case, the objective is to minimise the worst-case(maximum) solution. This statement is mathematically translated to:
 
 $$
 \min_{x \in X} \max_{c \in \mathcal{U}} c(x).
 $$
 
-Since we are optimizing (minimizing) an uncertain objective, we can rewrite the formulation as:
+Since we are optimising (minimising) an uncertain objective, we can rewrite the formulation as:
 
 $$
 \begin{align}
 \min \quad & t \\
 \text{s.t.} \quad & t \geq c(x), \ \forall c \in \mathcal{U}\\
- & x \in X
+ & \sum_{(s,v)\in\text{Node}} x_{(s,v)} = 1\\
+ & - \sum_{(v,t)\in\text{Node}} x_{(v,t)} = -1\\
+ & \sum x_{(v,w)} - \sum x_{(u,v)} = 0, \  \forall v \neq s,t\\
+ & x \in \{0,1\}
 \end{align}
 $$
+
+It is important to note that the constraints consist of the constraint from the uncertainty set, the constraint from the source (start) and sink (finish), as well as the flow conservation constraints. Translating the problem into Python code:
+
+```python
+# Defining model
+m = gp.Model("worstcase")
+x = gp.tupledict()
+
+# Define variables
+for (v1,v2) in edge_labels.keys():
+    x[v1,v2] = m.addVar(vtype="B", name=f"x_{v1}_{v2}", lb=0.0)
+
+t = m.addVar(name="t", lb=0.0)
+
+# Set objective
+m.setObjective(t, gp.GRB.MINIMIZE)
+
+# adding flow conservation constraints
+for v in G.nodes:
+    # we need to skip the source (0) and the sink (7)
+    if v not in ['s','t']:
+        # we collect the predecessor variables
+        expr1 = gp.quicksum(x[i,v] for i in G.predecessors(v))
+        
+        # we collect the successor variables 
+        expr2 = gp.quicksum(x[v, j] for j in G.successors(v))
+        
+        # we add the constraint
+        m.addLConstr(expr1 - expr2 == 0)
+
+# Adding source and sink constraints
+so = gp.quicksum(x['s',i] for i in G.successors('s'))
+si = gp.quicksum(x[j,'t'] for j in G.predecessors('t'))
+m.addLConstr(so == 1)
+m.addLConstr(si == 1)
+
+# Adding constraints from uncertainty set
+for u in u_set:
+    con = gp.quicksum(x[n1,n2] * u[i] for i,(n1,n2) in enumerate(edge_labels.keys()))
+    m.addLConstr(t >= con)
+
+# Run optimizer
+m.optimize()
+```
+Extracting the result yields:
+```python
+result = {var.VarName : var.x for var in m.getVars()}
+```
+```
+{'x_s_1': 1.0,
+ 'x_s_2': 0.0,
+ 'x_1_2': -0.0,
+ 'x_1_t': 1.0,
+ 'x_1_3': -0.0,
+ 'x_2_t': 0.0,
+ 'x_3_t': 0.0,
+ 't': 26.0}
+```
+<p align="center">
+  <img width="550" src='/images/rob_opt/simple_route.png' class="center">
+</p>
+<p align="center">
+  <em>Figure 2. Worst case optimisation result.</em>
+</p>
 
 TO BE CONTINUED...
 
