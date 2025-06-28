@@ -197,11 +197,13 @@ result = {var.VarName : var.x for var in m.getVars()}
  't': 26.0}
 ```
 <p align="center">
-  <img width="550" src='/images/rob_opt/simple_route.png' class="center">
+  <img width="550" src='/images/rob_opt/worstcase.png' class="center">
 </p>
 <p align="center">
-  <em>Figure 2. Worst case optimisation result.</em>
+  <em>Figure 2. Worst-case optimisation result.</em>
 </p>
+
+## Additive Regret
 
 TO BE CONTINUED...
 
